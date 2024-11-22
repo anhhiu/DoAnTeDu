@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DoAnTedu.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoAnTedu.Data
 {
@@ -7,5 +8,7 @@ namespace DoAnTedu.Data
         public AppDbcontext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
     }
 }
