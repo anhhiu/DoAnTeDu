@@ -90,6 +90,14 @@ namespace DoAnTedu.Controllers
             return StatusCode(response.Statuscode, response);
         }
 
+        [HttpDelete("Status{id:int}")]
+        public async Task<IActionResult> DeleteCustomerStatus(int id)
+        {
+            var response = new ResponseService<dynamic>();
+            response = await _service.DeleteCustomerByIdStatus(id);
+            return StatusCode(response.Statuscode, response);
+        }
+
         [HttpGet("page")]
 
         public async Task<IActionResult> GetCustomerPage(int pageNumber, int pageSize)

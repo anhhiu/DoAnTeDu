@@ -17,6 +17,6 @@ namespace DoAnTedu.Interfaces
 
         Task<ResponseService<dynamic>> SearchCustomerCardCodeorCartNameAsync(string key);
 
-
+        Task<ResponseService<dynamic>> DeleteCustomerByIdStatus(int id);
     }
 }
