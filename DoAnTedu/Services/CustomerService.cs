@@ -130,6 +130,7 @@ namespace DoAnTedu.Services
                                                    .Include(p => p.CrD3s)
                                                    .Include(p => p.CrD4s)
                                                    .Include(p => p.CrD5s)
+                                                   .Where(p => p.Status != "D")
                                                    .FirstOrDefaultAsync(p => p.ID == id);
 
             if (customer == null)
@@ -344,6 +345,31 @@ namespace DoAnTedu.Services
                 response.Message = "error" + ex.Message;
             }
 
+            return response;
+
+        }
+
+        public async Task<ResponseService<dynamic>> DeleteCustomerByIdStatus(int id)
+        {
+            var response = new ResponseService<dynamic>();
+
+            var customer = await _context.Customers.Where(p => p.ID == id && p.Status != "D").FirstOrDefaultAsync();
+
+            if (customer == null)
+            {
+                response.Data = null;
+                response.Statuscode = (int)HttpStatusCode.NotFound;
+                response.Message = "not found";
+                return response;
+            }
+
+            customer.Status = "D";
+            
+            _context.Customers.Update(customer);
+            await _context.SaveChangesAsync();
+
+            response.Statuscode = (int)HttpStatusCode.OK;
+            response.Message = "da xoa khach hang co id:" + id;
             return response;
 
         }
